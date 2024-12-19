@@ -5,6 +5,7 @@ import "express-async-errors";
 
 import redirect from "./routes/redirect";
 import urls from "./routes/urls";
+import users from "./routes/users";
 import errorHandler from "./middlewares/error-handler";
 
 export const app = express();
@@ -13,6 +14,7 @@ export const app = express();
 app.use(bodyParser.json({ limit: "5mb" }));
 
 app.use("/urls", urls);
+app.use("/users", users);
 app.use("/", redirect);
 
 app.use(errorHandler);

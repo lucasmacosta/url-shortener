@@ -36,7 +36,7 @@ export class UrlService {
     };
 
     try {
-      return Url.create(dbParams);
+      return await Url.create(dbParams);
     } catch (err) {
       if (!(err instanceof UniqueConstraintError)) {
         throw err;

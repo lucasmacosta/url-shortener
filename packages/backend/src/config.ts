@@ -7,6 +7,10 @@ const config = {
     maxAttempts: Number(process.env.SLUG_MAX_ATTEMPTS || 5),
     length: Number(process.env.SLUG_LENGTH || 6),
   },
+  auth: {
+    secret: process.env.AUTH_SECRET || "secret",
+    expiresIn: process.env.AUTH_EXPIRES_IN || "1h",
+  },
   db: {
     uri: process.env.DB_URI || "",
     logging: process.env.DB_LOGGING === "true",

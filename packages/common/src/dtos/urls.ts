@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const slugSchema = z.string().regex(/^[a-zA-z0-9]{6}$/);
+const slugSchema = z.string().regex(/^[a-zA-Z0-9]{6}$/);
 
 export const createUrlSchema = z.object({
   url: z.string().url(),
