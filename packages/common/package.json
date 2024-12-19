@@ -1,0 +1,16 @@
+{
+  "name": "common",
+  "version": "1.0.0",
+  "description": "",
+  "module": "build/index.js",
+  "types": "build/index.d.ts",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "zod": "^3.24.1"
+  }
+}

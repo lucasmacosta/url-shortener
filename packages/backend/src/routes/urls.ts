@@ -1,0 +1,30 @@
+import { Router } from "express";
+import Container from "typedi";
+
+import buildValidator from "../middlewares/build-validator";
+import { UrlController } from "../controllers/urls";
+
+const urlsController = Container.get(UrlController);
+
+import { createUrlSchema, urlParamsSchema, updateUrlSchema } from "common";
+
+const urls = Router();
+
+urls.get(
+  "/:slug",
+  buildValidator("params", urlParamsSchema),
+  urlsController.get.bind(urlsController)
+);
+urls.post(
+  "/",
+  buildValidator("body", createUrlSchema),
+  urlsController.create.bind(urlsController)
+);
+urls.put(
+  "/:slug",
+  buildValidator("params", urlParamsSchema),
+  buildValidator("body", updateUrlSchema),
+  urlsController.update.bind(urlsController)
+);
+
+export default urls;
