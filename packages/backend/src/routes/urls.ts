@@ -2,7 +2,8 @@ import { Router } from "express";
 import Container from "typedi";
 
 import buildValidator from "../middlewares/build-validator";
-import authenticationMiddleware from "../middlewares/authentication";
+import buildAuthentication from "../middlewares/build-authentication";
+import buildAuthorization from "../middlewares/build-authorization";
 import { UrlController } from "../controllers/urls";
 
 const urlsController = Container.get(UrlController);
@@ -18,12 +19,14 @@ urls.get(
 );
 urls.post(
   "/",
+  buildAuthentication(false),
   buildValidator("body", createUrlSchema),
   urlsController.create.bind(urlsController)
 );
 urls.put(
   "/:slug",
-  authenticationMiddleware,
+  buildAuthentication(),
+  buildAuthorization("url:update"),
   buildValidator("params", urlParamsSchema),
   buildValidator("body", updateUrlSchema),
   urlsController.update.bind(urlsController)

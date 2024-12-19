@@ -6,10 +6,10 @@ import { LOGGER } from "../lib/logger";
 import { User } from "../models/User";
 import { APP_CONFIG, AppConfig } from "../config";
 
-type UserScope = "url:update" | "url:list";
+export type Scope = "url:update" | "url:list";
 
-interface TokenPayload extends JwtPayload {
-  scopes: UserScope[];
+export interface TokenPayload extends JwtPayload {
+  scopes: Scope[];
 }
 
 const USER_SCOPES = ["url:update", "url:list"];
@@ -35,5 +35,9 @@ export class AuthService {
 
   validateToken(token: string) {
     return verify(token, this.config.auth.secret) as TokenPayload;
+  }
+
+  isAuthorized(user: User, tokenPayload: TokenPayload, scope: Scope) {
+    return tokenPayload.scopes.includes(scope);
   }
 }

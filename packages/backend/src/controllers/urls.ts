@@ -3,6 +3,7 @@ import { RequestHandler } from "express";
 
 import { UrlService } from "../services/urls";
 import { UrlParamsDto, CreateUrlDto, UpdateUrlDto } from "common";
+import { User } from "../models/User";
 
 @Service()
 export class UrlController {
@@ -18,8 +19,9 @@ export class UrlController {
 
   create: RequestHandler = async (req, res) => {
     const body = res.locals.validated.body as CreateUrlDto;
+    const user = res.locals.user as User | undefined;
 
-    const url = await this.urlService.create(body);
+    const url = await this.urlService.create(body, user);
 
     res.status(201).json(url);
   };
@@ -27,8 +29,9 @@ export class UrlController {
   update: RequestHandler = async (req, res) => {
     const params = res.locals.validated.params as UrlParamsDto;
     const body = res.locals.validated.body as UpdateUrlDto;
+    const user = res.locals.user as User;
 
-    const url = await this.urlService.update(params.slug, body);
+    const url = await this.urlService.update(params.slug, body, user);
 
     res.status(200).json(url);
   };

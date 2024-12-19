@@ -11,10 +11,13 @@ import {
   Min,
   Default,
   Is,
+  ForeignKey,
+  BelongsTo,
 } from "sequelize-typescript";
 import Container from "typedi";
 
 import { APP_CONFIG } from "../config";
+import { User } from "./User";
 
 const config = Container.get(APP_CONFIG);
 
@@ -25,12 +28,17 @@ interface UrlAttributes {
   url: string;
   slug: string;
   hits: number;
+  user?: User;
+  userId?: number;
   createdAt: Date;
   updatedAt: Date;
 }
 
 interface UrlCreationAttributes
-  extends Optional<UrlAttributes, "id" | "hits" | "createdAt" | "updatedAt"> {}
+  extends Optional<
+    UrlAttributes,
+    "id" | "hits" | "userId" | "createdAt" | "updatedAt"
+  > {}
 
 @Table({
   timestamps: true,
@@ -58,6 +66,16 @@ export class Url extends Model<UrlAttributes, UrlCreationAttributes> {
   @Default(0)
   @Column
   hits!: number;
+
+  @ForeignKey(() => User)
+  @Column({
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  userId?: number;
+
+  @BelongsTo(() => User)
+  user?: User;
 
   @CreatedAt
   @AllowNull(false)
