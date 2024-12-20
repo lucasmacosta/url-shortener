@@ -12,7 +12,7 @@ export default function buildAuthorization(scope: Scope) {
     const user = res.locals.user as User;
     const tokenPayload = res.locals.tokenPayload as TokenPayload;
     if (!authService.isAuthorized(user, tokenPayload, scope)) {
-      throw new ApiError("Unauthorized", "unauthorized");
+      throw new ApiError("Forbidden", "forbidden");
     }
 
     next();

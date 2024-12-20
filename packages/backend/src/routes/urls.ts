@@ -13,13 +13,19 @@ import { createUrlSchema, urlParamsSchema, updateUrlSchema } from "common";
 const urls = Router();
 
 urls.get(
+  "/",
+  buildAuthentication(),
+  buildAuthorization("url:list"),
+  urlsController.getForUser.bind(urlsController)
+);
+urls.get(
   "/:slug",
   buildValidator("params", urlParamsSchema),
   urlsController.get.bind(urlsController)
 );
 urls.post(
   "/",
-  buildAuthentication(false),
+  buildAuthentication(true),
   buildValidator("body", createUrlSchema),
   urlsController.create.bind(urlsController)
 );

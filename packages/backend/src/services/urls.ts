@@ -30,6 +30,12 @@ export class UrlService {
     return url;
   }
 
+  public async getForUser(user: User) {
+    const urls = await Url.findAll({ where: { userId: user.id } });
+
+    return urls;
+  }
+
   public async create(
     params: CreateUrlDto,
     user?: User,

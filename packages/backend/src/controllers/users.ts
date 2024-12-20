@@ -17,6 +17,7 @@ export class UserController {
     const body = res.locals.validated.body as CreateUserDto;
 
     const user = await this.userService.create(body);
+
     res.status(201).json(user);
   };
 

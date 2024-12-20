@@ -17,6 +17,14 @@ export class UrlController {
     res.status(200).json(url);
   };
 
+  getForUser: RequestHandler = async (req, res) => {
+    const user = res.locals.user as User;
+
+    const urls = await this.urlService.getForUser(user);
+
+    res.status(200).json(urls);
+  };
+
   create: RequestHandler = async (req, res) => {
     const body = res.locals.validated.body as CreateUrlDto;
     const user = res.locals.user as User | undefined;

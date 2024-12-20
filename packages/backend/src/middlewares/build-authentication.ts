@@ -8,16 +8,16 @@ import { AuthService } from "../services/auth";
 const userService = Container.get(UserService);
 const authService = Container.get(AuthService);
 
-export default function buildAuthentication(allowAnonymous = true) {
+export default function buildAuthentication(allowAnonymous = false) {
   return async function authenticationMiddleware(req, res, next) {
     const token = (req.headers.authorization || "").split(" ")[1];
 
     if (!token) {
       if (allowAnonymous) {
-        throw new ApiError("Token missing", "unauthorized");
-      } else {
         next();
         return;
+      } else {
+        throw new ApiError("Token missing", "unauthorized");
       }
     }
 
