@@ -26,7 +26,7 @@ export class UserController {
     try {
       const user = await this.userService.get(body.username);
       const token = this.authService.getToken(user);
-      res.status(200).json({ token });
+      res.status(200).json({ token, user });
       return;
     } catch (err) {
       throw new ApiError("Login failed", "unauthorized");

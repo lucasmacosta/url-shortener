@@ -25,16 +25,6 @@ export class UserService {
   }
 
   public async create(params: CreateUserDto): Promise<User> {
-    try {
-      return await User.create(params);
-    } catch (err) {
-      console.log(err);
-      if (err instanceof UniqueConstraintError) {
-        this.logger.warn(`The user ${params.username} already exists`);
-        throw new ApiError("Bad Request", "badRequest");
-      }
-
-      throw err;
-    }
+    return await User.create(params);
   }
 }
