@@ -9,14 +9,6 @@ import { User } from "../models/User";
 export class UrlController {
   constructor(private urlService: UrlService) {}
 
-  get: RequestHandler = async (req, res) => {
-    const params = res.locals.validated.params as UrlParamsDto;
-
-    const url = await this.urlService.get(params.slug);
-
-    res.status(200).json(url);
-  };
-
   getForUser: RequestHandler = async (req, res) => {
     const user = res.locals.user as User;
 

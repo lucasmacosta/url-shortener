@@ -20,11 +20,6 @@ urls.get(
   urlsController.getForUser.bind(urlsController)
 );
 urls.get("/stats", urlsController.stats.bind(urlsController));
-urls.get(
-  "/:slug",
-  buildValidator("params", urlParamsSchema),
-  urlsController.get.bind(urlsController)
-);
 urls.post(
   "/",
   rateLimit({

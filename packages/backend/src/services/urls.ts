@@ -73,7 +73,7 @@ export class UrlService {
 
       this.logger.info(`The slug ${dbParams.slug} already exists`);
 
-      if (params.slug === undefined) {
+      if (params.slug !== undefined) {
         throw new ApiError("Custom slug already exists", "conflict");
       }
 
