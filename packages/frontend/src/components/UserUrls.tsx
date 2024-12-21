@@ -50,7 +50,7 @@ function UserUrls(props: UserUrlsProps) {
         {urlMappings.map((urlMapping) => (
           <li
             className="list-group-item d-flex justify-content-between align-items-start"
-            id={urlMapping.slug}
+            key={urlMapping.slug}
           >
             <div className="me-auto text-truncate">
               <div className="fw-bold">

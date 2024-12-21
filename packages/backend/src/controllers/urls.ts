@@ -25,6 +25,12 @@ export class UrlController {
     res.status(200).json(urls);
   };
 
+  stats: RequestHandler = async (req, res) => {
+    const urls = await this.urlService.stats();
+
+    res.status(200).json(urls);
+  };
+
   create: RequestHandler = async (req, res) => {
     const body = res.locals.validated.body as CreateUrlDto;
     const user = res.locals.user as User | undefined;
@@ -48,6 +54,8 @@ export class UrlController {
     const params = res.locals.validated.params as UrlParamsDto;
 
     const url = await this.urlService.get(params.slug);
+
+    await this.urlService.incrementHits(url);
 
     res.redirect(301, url.url);
   };

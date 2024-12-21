@@ -18,6 +18,7 @@ urls.get(
   buildAuthorization("url:list"),
   urlsController.getForUser.bind(urlsController)
 );
+urls.get("/stats", urlsController.stats.bind(urlsController));
 urls.get(
   "/:slug",
   buildValidator("params", urlParamsSchema),

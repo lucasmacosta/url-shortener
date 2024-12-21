@@ -1,5 +1,10 @@
 import { Inject, Service } from "typedi";
-import { Transaction, UniqueConstraintError } from "sequelize";
+import {
+  Order,
+  OrderItem,
+  Transaction,
+  UniqueConstraintError,
+} from "sequelize";
 import { generate } from "randomstring";
 import { Logger } from "winston";
 
@@ -10,6 +15,9 @@ import sequelize from "../db";
 import { APP_CONFIG, AppConfig } from "../config";
 import { LOGGER } from "../lib/logger";
 import { User } from "../models/User";
+
+const STATS_DEFAULT_LIMIT = 20;
+const STATS_DEFAULT_ORDER = ["hits", "DESC"] as OrderItem;
 
 @Service()
 export class UrlService {
@@ -32,6 +40,15 @@ export class UrlService {
 
   public async getForUser(user: User) {
     const urls = await Url.findAll({ where: { userId: user.id } });
+
+    return urls;
+  }
+
+  public async stats(user?: User) {
+    const urls = await Url.findAll({
+      order: [STATS_DEFAULT_ORDER],
+      limit: STATS_DEFAULT_LIMIT,
+    });
 
     return urls;
   }
@@ -93,6 +110,10 @@ export class UrlService {
       }
       throw err;
     }
+  }
+
+  public async incrementHits(url: Url) {
+    await url.increment("hits");
   }
 
   private generateSlug() {

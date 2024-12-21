@@ -13,6 +13,11 @@ services:
       db:
         condition: service_healthy
         restart: true
+    healthcheck:
+      test:
+        ["CMD-SHELL", "wget -O- http://localhost:3000/urls/stats > /dev/null"]
+      interval: 2s
+      retries: 5
   db:
     image: postgres
     restart: always
@@ -34,3 +39,7 @@ services:
       dockerfile: Dockerfile.frontend
     ports:
       - 8080:8080
+    depends_on:
+      backend:
+        condition: service_healthy
+        restart: true
