@@ -19,14 +19,15 @@ function isValidSlug(slug: string, allowEmpty: boolean) {
 function UrlForm(props: UrlFormProps) {
   const { urlMapping, onSaveChanges, onCancelEdit } = props;
   const [url, setUrl] = useState("");
+  const [validUrl, setValidUrl] = useState(false);
+  const [slug, setSlug] = useState("");
+  const [validSlug, setValidSlug] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [urlMappingPreview, setUrlMappingPreview] = useState<UrlMapping | null>(
     null
   );
-  const [validUrl, setValidUrl] = useState(false);
-  const [slug, setSlug] = useState("");
-  const [validSlug, setValidSlug] = useState(false);
+  const [mustReset, setMustReset] = useState(false);
   const { loggedInUser } = useContext(UserContext);
 
   const isEdit = urlMapping !== null;
@@ -46,9 +47,9 @@ function UrlForm(props: UrlFormProps) {
         } else {
           urlMappingRes = await updateUrl(urlMapping.slug, { slug }, token);
         }
+        setMustReset(true);
         onSaveChanges(urlMappingRes);
         setUrlMappingPreview(urlMappingRes);
-        setSlug("");
       } catch (err) {
         setError(err as Error);
       } finally {
@@ -79,6 +80,20 @@ function UrlForm(props: UrlFormProps) {
     setError(null);
   }, [slug, isEdit]);
 
+  function cancelEdit() {
+    onCancelEdit();
+    setUrl("");
+    setSlug("");
+  }
+
+  function reset() {
+    if (mustReset) {
+      setMustReset(false);
+      setUrl("");
+      setSlug("");
+    }
+  }
+
   return (
     <>
       <p className="lead">Enter the URL to shorten</p>
@@ -92,6 +107,7 @@ function UrlForm(props: UrlFormProps) {
             id="url"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
+            onFocus={reset}
             disabled={isEdit}
           />
           {url && !validUrl && (
@@ -112,6 +128,7 @@ function UrlForm(props: UrlFormProps) {
                 aria-describedby="basic-addon1"
                 value={slug}
                 onChange={(e) => setSlug(e.target.value)}
+                onFocus={reset}
               />
             </div>
             {slug && !validSlug && (
@@ -124,7 +141,7 @@ function UrlForm(props: UrlFormProps) {
           type="submit"
           className="btn btn-primary"
           onClick={() => setSubmitting(true)}
-          disabled={!(validUrl && validSlug) || submitting}
+          disabled={!(validUrl && validSlug) || mustReset || submitting}
         >
           {!isEdit ? "Shorten" : "Update"}
         </button>
@@ -132,7 +149,7 @@ function UrlForm(props: UrlFormProps) {
           <button
             type="submit"
             className="btn btn-danger"
-            onClick={onCancelEdit}
+            onClick={() => cancelEdit()}
           >
             Cancel
           </button>
