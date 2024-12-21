@@ -19,6 +19,10 @@ const config = {
     level: process.env.LOGGER_LEVEL || "info",
     silent: process.env.LOGGER_SILENT === "true",
   },
+  rateLimit: {
+    window: Number(process.env.RATE_LIMIT_WINDOW || 60), // In seconds
+    limit: Number(process.env.RATE_LIMIT_LIMIT || 6),
+  },
 };
 
 export type AppConfig = typeof config;

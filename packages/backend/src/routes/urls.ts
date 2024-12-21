@@ -1,14 +1,15 @@
 import { Router } from "express";
 import Container from "typedi";
+import { rateLimit } from "express-rate-limit";
 
 import buildValidator from "../middlewares/build-validator";
 import buildAuthentication from "../middlewares/build-authentication";
 import buildAuthorization from "../middlewares/build-authorization";
 import { UrlController } from "../controllers/urls";
-
-const urlsController = Container.get(UrlController);
-
 import { createUrlSchema, urlParamsSchema, updateUrlSchema } from "common";
+import { APP_CONFIG } from "../config";
+const urlsController = Container.get(UrlController);
+const config = Container.get(APP_CONFIG);
 
 const urls = Router();
 
@@ -26,6 +27,10 @@ urls.get(
 );
 urls.post(
   "/",
+  rateLimit({
+    windowMs: config.rateLimit.window * 1000,
+    limit: config.rateLimit.limit,
+  }),
   buildAuthentication(true),
   buildValidator("body", createUrlSchema),
   urlsController.create.bind(urlsController)
