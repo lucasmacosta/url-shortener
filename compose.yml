@@ -1,0 +1,31 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    # build: .
+    environment:
+      DB_URI: postgres://postgres:postgres@db:5432/url-shortener
+      DB_LOGGING: true
+      LOGGER_LEVEL: debug
+    ports:
+      - 3000:3000
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+  db:
+    image: postgres
+    restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: url-shortener
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d url-shortener"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
