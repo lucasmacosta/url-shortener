@@ -1,5 +1,5 @@
 import { Inject, Service } from "typedi";
-import { Transaction, UniqueConstraintError } from "sequelize";
+import { Transaction } from "sequelize";
 import { Logger } from "winston";
 
 import { CreateUserDto } from "common";

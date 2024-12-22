@@ -1,6 +1,6 @@
 import { Inject, Service } from "typedi";
 import { Logger } from "winston";
-import { sign, verify, JwtPayload, Jwt } from "jsonwebtoken";
+import { sign, verify, JwtPayload } from "jsonwebtoken";
 
 import { LOGGER } from "../lib/logger";
 import { User } from "../models/User";

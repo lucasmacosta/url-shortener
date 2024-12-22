@@ -9,6 +9,7 @@ const logger = Container.get(LOGGER);
 
 const { internalServerError, conflict } = API_ERRORS;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const errorHandler: ErrorRequestHandler = (error, _, res, __) => {
   if (
     error instanceof UniqueConstraintError ||

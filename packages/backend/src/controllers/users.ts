@@ -29,6 +29,7 @@ export class UserController {
       const token = this.authService.getToken(user);
       res.status(200).json({ token, user });
       return;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       throw new ApiError("Login failed", "unauthorized");
     }

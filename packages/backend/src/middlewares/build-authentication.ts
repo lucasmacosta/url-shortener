@@ -26,6 +26,7 @@ export default function buildAuthentication(allowAnonymous = false) {
       const user = await userService.get(tokenPayload.sub as string);
       res.locals.user = user;
       res.locals.tokenPayload = tokenPayload;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       throw new ApiError("Unauthorized", "unauthorized");
     }

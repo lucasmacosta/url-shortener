@@ -5,11 +5,9 @@ import sequelize from "../src/db";
 import { User } from "../src/models/User";
 
 describe("Users E2E", () => {
-  let user1: User;
-
   beforeEach(async () => {
     await sequelize.sync({ force: true });
-    [user1] = await User.bulkCreate([
+    await User.bulkCreate([
       {
         username: "user1",
       },

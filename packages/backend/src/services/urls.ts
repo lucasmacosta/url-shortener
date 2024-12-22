@@ -47,7 +47,7 @@ export class UrlService {
     return urls;
   }
 
-  public async stats(user?: User) {
+  public async stats() {
     const urls = await Url.findAll({
       order: [STATS_DEFAULT_ORDER],
       limit: STATS_DEFAULT_LIMIT,

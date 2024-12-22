@@ -34,11 +34,10 @@ interface UrlAttributes {
   updatedAt: Date;
 }
 
-interface UrlCreationAttributes
-  extends Optional<
-    UrlAttributes,
-    "id" | "hits" | "userId" | "createdAt" | "updatedAt"
-  > {}
+type UrlCreationAttributes = Optional<
+  UrlAttributes,
+  "id" | "hits" | "userId" | "createdAt" | "updatedAt"
+>;
 
 @Table({
   timestamps: true,
