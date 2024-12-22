@@ -29,6 +29,7 @@ function Username({ onValidUsername }: UsernameProps) {
           id="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          autoComplete="off"
         />
         {username && !valid && (
           <p className="text-danger mt-1">Enter a valid username</p>

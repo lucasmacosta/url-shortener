@@ -110,6 +110,7 @@ function UrlForm(props: UrlFormProps) {
             onChange={(e) => setUrl(e.target.value)}
             onFocus={reset}
             disabled={isEdit}
+            autoComplete="off"
           />
           {url && !validUrl && (
             <p className="text-danger mt-1">Enter a valid URL</p>
