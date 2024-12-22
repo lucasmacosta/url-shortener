@@ -8,17 +8,25 @@ There are two independent packages for backend and frontend respectively, and sc
 
 Run the `npm install` command to install dependencies. On Linux it works out of the box, on MacOS I had to use Node.js 20 and run the `npm config set python "$(which python3)"` command first before I was able to compile the sqlite dependency. In order to install that Node.js version the command `nvm install` can be used at the root of the repo, provided you are using `nvm` to manage Node.js versions. The exact node version used while developing is on the `.nvmrc` file.
 
+## Quickstart for a testing environment
+
+- Run `npm install` to install dependencies.
+- Run `docker compose up -d --build` to start a DB, the backend and the frontend.
+- The API will now be available on http://localhost:3000, using a PostgreSQL database that gets reset every it's started.
+- The frontend will now be available on http://localhost:8080.
+- Check [this video](https://drive.google.com/file/d/16TCrl1j0vweZ4SU3ygrGxtKI8yMZRnVQ/view?usp=sharing) for a quick overview of the functionality provided by the frontend.
+- Use `docker-compose down` to stop the testing environment.
+
 ## Quickstart for development environment
 
 - Run `npm install` to install dependencies.
 - Copy the `packages/backend/.env.sample` file into `packages/backend/.env` and make changes if needed.
 - Copy the `packages/frontend/.env.sample` file into `packages/frontend/.env` and make changes if needed.
 - Run the `npm run start:dev:backend` command to start the server in development mode.
-- The API will now be available on http://localhost:3000, using a default in-memory SQLite database that gets reset every its started.
+- The API will now be available on http://localhost:3000, using a default in-memory SQLite database that gets reset every it's started.
 - Run the `npm run start:dev:frontend` command to start the frontend in development mode.
 - The frontend will now be available on http://localhost:8080
 - Use the provided postman collection on `docs/postman/URL-Shortener-API.postman_collection.json` and the corresponding environment from `docs/postman/URL-Shortener-environment.postman_environment.json` to perform requests to the available endpoints.
-- Check [this video](https://drive.google.com/file/d/16TCrl1j0vweZ4SU3ygrGxtKI8yMZRnVQ/view?usp=sharing) for a quick overview of the functionality provided by the frontend.
 
 ## Backend
 
