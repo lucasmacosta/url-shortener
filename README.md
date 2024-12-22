@@ -107,7 +107,6 @@ Here's a list of things that are left pending for future improvements to the API
 - Add proper API documentation, using `Swagger`, `JSON:API` or similar. Ideally it should be generated automatically by describing the endpoints somehow, either by annotations on comments or by using decorators. Another desirable feature would be to use the definitions to generate the typings on the API consumers.
 - If selecting the attributes to be returned on each endpoint is required, then most likely GraphQL would be a better option.
 - Throttling is currently only enforced on the endpoint that creates url mappings by using the [express-rate-limit](https://www.npmjs.com/package/express-rate-limit) library, which should work fine for a basic usage. Further scaling might require to use tools at infra level instead.
-- Add support for linting and prettier tools.
 
 And the list of things pending for frontend:
 
