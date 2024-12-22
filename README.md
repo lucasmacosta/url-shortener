@@ -44,6 +44,10 @@ Tests are ran with the `npm run test -w backend` command. For now only E2E are i
 
 Since the API uses the sequelize library, using another database should as simple as installing the necessary modules and then setting the `DB_URI` env var appropriately. The required dependencies for SQLite and PostgreSQL are already configured.
 
+### Linting and formatting
+
+The `npm run lint:fix -w backend` and `npm run prettier:fix -w backend` commands are available to lint and format the backend source files respectively. By replacing `backend` with `common`, the same operations can be applied to the common workspace.
+
 ## Frontend
 
 The frontend has his own set of commands that can be used by running them using the `-w frontend` flag, like this `npm run <command> -w frontend`.
