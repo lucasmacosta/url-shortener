@@ -64,7 +64,7 @@ The frontend has his own set of commands that can be used by running them using 
 
 When the frontend is started with the `npm run dev -w frontend` command, it will reload automatically when sources are updated.
 
-## Using docker
+## Using docker
 
 ### Backend
 
@@ -98,7 +98,7 @@ docker run --rm --publish 8080:8080 url-shortener-fe:latest
 
 A docker compose `compose.yml` file is provided that allows to orchestrate a full environment with both backend and frontend running and using a postgresql database. It can be used with the `docker compose up -d --build` command, which will take care of setting up the DB and running the API using it. The API can then be accessed through http://localhost:3000 and the frontend will be on http://localhost:8080. The `docker-compose down` command will take care of bringing the services down.
 
-# Further improvements:
+## Further improvements:
 
 Here's a list of things that are left pending for future improvements to the API in terms of architecture:
 
