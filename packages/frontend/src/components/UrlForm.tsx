@@ -64,6 +64,7 @@ function UrlForm(props: UrlFormProps) {
 
   useEffect(() => {
     if (isEdit) {
+      setMustReset(false);
       setUrl(urlMapping.url);
       setSlug(urlMapping.slug);
     }
