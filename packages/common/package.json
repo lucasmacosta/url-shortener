@@ -7,7 +7,9 @@
   "main": "build/index.js",
   "scripts": {
     "clean": "rm -rf build/",
-    "build": "npm run clean && tsc"
+    "build": "npm run clean && tsc",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +17,9 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "typescript": "^5.7.2"
+    "@eslint/js": "^9.17.0",
+    "eslint": "^9.17.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.1"
   }
 }
