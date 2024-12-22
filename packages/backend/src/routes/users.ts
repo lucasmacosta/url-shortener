@@ -13,12 +13,12 @@ const users = Router();
 users.post(
   "/",
   buildValidator("body", createUserSchema),
-  usersController.create.bind(usersController)
+  usersController.create.bind(usersController),
 );
 users.post(
   "/login",
   buildValidator("body", authenticateUserSchema),
-  usersController.login.bind(usersController)
+  usersController.login.bind(usersController),
 );
 
 export default users;

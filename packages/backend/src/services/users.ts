@@ -11,7 +11,7 @@ import { User } from "../models/User";
 export class UserService {
   constructor(
     @Inject(LOGGER)
-    private logger: Logger
+    private logger: Logger,
   ) {}
 
   public async get(username: string, transaction?: Transaction) {

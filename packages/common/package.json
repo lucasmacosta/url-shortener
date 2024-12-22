@@ -9,7 +9,9 @@
     "clean": "rm -rf build/",
     "build": "npm run clean && tsc",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier . --write"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +21,8 @@
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "3.4.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.1"
   }

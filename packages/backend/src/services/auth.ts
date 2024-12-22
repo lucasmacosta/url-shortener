@@ -20,7 +20,7 @@ export class AuthService {
     @Inject(APP_CONFIG)
     private config: AppConfig,
     @Inject(LOGGER)
-    private logger: Logger
+    private logger: Logger,
   ) {}
 
   getToken(user: User) {

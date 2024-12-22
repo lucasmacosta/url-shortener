@@ -14,6 +14,6 @@ const port = process.env.PORT || 3000;
   const logger = Container.get(LOGGER);
 
   createServer(app).listen(port, () =>
-    logger.info(`Server running on port ${port}`)
+    logger.info(`Server running on port ${port}`),
   );
 })();

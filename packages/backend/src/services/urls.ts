@@ -28,7 +28,7 @@ export class UrlService {
     @Inject(LOGGER)
     private logger: Logger,
     @Inject(GENERATE_FN)
-    private generateFn: GenerateFn
+    private generateFn: GenerateFn,
   ) {}
 
   public async get(slug: string, transaction?: Transaction) {
@@ -59,7 +59,7 @@ export class UrlService {
   public async create(
     params: CreateUrlDto,
     user?: User,
-    attempts = 0
+    attempts = 0,
   ): Promise<Url> {
     const dbParams = {
       ...params,
@@ -85,7 +85,7 @@ export class UrlService {
 
       throw new ApiError(
         "Could not create shortened url",
-        "internalServerError"
+        "internalServerError",
       );
     }
   }

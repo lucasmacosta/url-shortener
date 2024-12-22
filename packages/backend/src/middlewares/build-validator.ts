@@ -5,7 +5,7 @@ import ApiError from "../lib/api-error";
 
 export default function buildValidator(
   type: "body" | "query" | "params",
-  schema: Schema
+  schema: Schema,
 ) {
   return function validationMiddleware(req, res, next) {
     try {
@@ -21,7 +21,7 @@ export default function buildValidator(
     } catch (error) {
       throw new ApiError(
         error instanceof Error ? error.message : "Bad Request",
-        "badRequest"
+        "badRequest",
       );
     }
   } as RequestHandler;

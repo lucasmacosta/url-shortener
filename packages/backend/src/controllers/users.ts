@@ -10,7 +10,7 @@ import { AuthService } from "../services/auth";
 export class UserController {
   constructor(
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   create: RequestHandler = async (req, res) => {

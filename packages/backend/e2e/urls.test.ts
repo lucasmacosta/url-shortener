@@ -216,7 +216,7 @@ describe("Urls E2E", () => {
             url: url1.url,
             slug: url1.slug,
           }),
-        ])
+        ]),
       );
     });
 

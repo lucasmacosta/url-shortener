@@ -17,7 +17,7 @@ urls.get(
   "/",
   buildAuthentication(),
   buildAuthorization("url:list"),
-  urlsController.getForUser.bind(urlsController)
+  urlsController.getForUser.bind(urlsController),
 );
 urls.get("/stats", urlsController.stats.bind(urlsController));
 urls.post(
@@ -28,7 +28,7 @@ urls.post(
   }),
   buildAuthentication(true),
   buildValidator("body", createUrlSchema),
-  urlsController.create.bind(urlsController)
+  urlsController.create.bind(urlsController),
 );
 urls.put(
   "/:slug",
@@ -36,7 +36,7 @@ urls.put(
   buildAuthorization("url:update"),
   buildValidator("params", urlParamsSchema),
   buildValidator("body", updateUrlSchema),
-  urlsController.update.bind(urlsController)
+  urlsController.update.bind(urlsController),
 );
 
 export default urls;

@@ -13,7 +13,7 @@ const redirect = Router();
 redirect.get(
   "/:slug",
   buildValidator("params", urlParamsSchema),
-  urlsController.redirect.bind(urlsController)
+  urlsController.redirect.bind(urlsController),
 );
 
 export default redirect;
