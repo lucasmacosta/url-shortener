@@ -8,7 +8,7 @@
     "build": "npm run clean && tsc",
     "start": "node build/index.js",
     "start:dev": "ts-node-dev --respawn --transpile-only index.ts",
-    "test": "NODE_ENV=test DB_URI=sqlite::memory: DB_LOGGING=false LOGGER_SILENT=true jest"
+    "test": "NODE_ENV=test DB_URI=sqlite::memory: DB_LOGGING=false LOGGER_SILENT=true RATE_LIMIT_LIMIT=20 jest"
   },
   "author": "",
   "license": "ISC",

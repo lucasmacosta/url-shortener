@@ -6,6 +6,7 @@ import sequelize from "../src/db";
 import { Url } from "../src/models/Url";
 import { User } from "../src/models/User";
 import { AuthService } from "../src/services/auth";
+import { UrlService } from "../src/services/urls";
 
 const authService = Container.get(AuthService);
 
@@ -40,6 +41,10 @@ describe("Urls E2E", () => {
     token2 = authService.getToken(user2);
   });
 
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   describe("Create url", () => {
     test("should create an url", async () => {
       const response = await request(app)
@@ -66,6 +71,40 @@ describe("Urls E2E", () => {
         slug: expect.any(String),
         userId: user1.id,
       });
+    });
+
+    test("should create an url after retrying in case of a duplicated slug", async () => {
+      const mockGenerateFn = jest
+        .fn()
+        .mockReturnValueOnce("test12")
+        .mockReturnValue("valid1");
+      const urlService = Container.get(UrlService);
+
+      urlService["generateFn"] = mockGenerateFn;
+
+      const response = await request(app)
+        .post("/urls")
+        .send({ url: "http://fake-site.com" });
+
+      expect(response.status).toBe(201);
+      expect(response.body).toMatchObject({
+        url: "http://fake-site.com",
+        slug: expect.any(String),
+      });
+      expect(response.body.userId).toBeUndefined();
+    });
+
+    test("should fail after exhausting the number of retries for duplicated slugs", async () => {
+      const mockGenerateFn = jest.fn().mockReturnValue("test12");
+      const urlService = Container.get(UrlService);
+
+      urlService["generateFn"] = mockGenerateFn;
+
+      const response = await request(app)
+        .post("/urls")
+        .send({ url: "http://fake-site.com" });
+
+      expect(response.status).toBe(500);
     });
 
     test("should create an url with a custom slug", async () => {

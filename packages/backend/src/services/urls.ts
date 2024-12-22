@@ -1,10 +1,5 @@
-import { Inject, Service } from "typedi";
-import {
-  Order,
-  OrderItem,
-  Transaction,
-  UniqueConstraintError,
-} from "sequelize";
+import { Container, Inject, Service, Token } from "typedi";
+import { OrderItem, Transaction, UniqueConstraintError } from "sequelize";
 import { generate } from "randomstring";
 import { Logger } from "winston";
 
@@ -19,13 +14,21 @@ import { User } from "../models/User";
 const STATS_DEFAULT_LIMIT = 20;
 const STATS_DEFAULT_ORDER = ["hits", "DESC"] as OrderItem;
 
+export type GenerateFn = typeof generate;
+
+export const GENERATE_FN = new Token<GenerateFn>("GENERATE_FN");
+
+Container.set(GENERATE_FN, generate);
+
 @Service()
 export class UrlService {
   constructor(
     @Inject(APP_CONFIG)
     private config: AppConfig,
     @Inject(LOGGER)
-    private logger: Logger
+    private logger: Logger,
+    @Inject(GENERATE_FN)
+    private generateFn: GenerateFn
   ) {}
 
   public async get(slug: string, transaction?: Transaction) {
@@ -63,7 +66,6 @@ export class UrlService {
       userId: user?.id,
       slug: params.slug || this.generateSlug(),
     };
-
     try {
       return await Url.create(dbParams);
     } catch (err) {
@@ -117,7 +119,7 @@ export class UrlService {
   }
 
   private generateSlug() {
-    return generate({
+    return this.generateFn({
       length: this.config.slugs.length,
       charset: "alphabetic",
     });
