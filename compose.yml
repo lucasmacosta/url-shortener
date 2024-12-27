@@ -16,7 +16,7 @@ services:
     healthcheck:
       test:
         ["CMD-SHELL", "wget -O- http://localhost:3000/urls/stats > /dev/null"]
-      interval: 2s
+      interval: 10s
       retries: 5
   db:
     image: postgres

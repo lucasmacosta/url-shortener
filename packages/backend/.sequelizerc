@@ -1,0 +1,10 @@
+// .sequelizerc
+
+const path = require("path");
+require("dotenv/config");
+
+module.exports = {
+  "migrations-path": path.resolve("build", "src", "migrations"),
+  url: process.env.DB_URI,
+  debug: process.env.DB_LOGGING === "true",
+};

@@ -12,7 +12,10 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "prettier": "prettier . --check",
-    "prettier:fix": "prettier . --write"
+    "prettier:fix": "prettier . --write",
+    "db:create": "sequelize db:create",
+    "db:migrations:generate": "sequelize migration:generate --migrations-path src/migrations",
+    "db:migrations:run": "npm run build && sequelize db:migrate"
   },
   "author": "",
   "license": "ISC",
@@ -48,6 +51,7 @@
     "eslint-config-prettier": "^9.1.0",
     "jest": "^29.7.0",
     "prettier": "3.4.2",
+    "sequelize-cli": "^6.6.2",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",

@@ -22,8 +22,10 @@ Run the `npm install` command to install dependencies. On Linux it works out of 
 - Run `npm install` to install dependencies.
 - Copy the `packages/backend/.env.sample` file into `packages/backend/.env` and make changes if needed.
 - Copy the `packages/frontend/.env.sample` file into `packages/frontend/.env` and make changes if needed.
+- Run the `npm run db:create -w backend` command to create the DB if the credentials allows for it. Please notice that this step is not needed for SQLite dbs.
+- Run the `npm run db:migrations:run -w backend` command to run the DB migrations.
 - Run the `npm run start:dev:backend` command to start the server in development mode.
-- The API will now be available on http://localhost:3000, using a default in-memory SQLite database that gets reset every it's started.
+- The API will now be available on http://localhost:3000
 - Run the `npm run start:dev:frontend` command to start the frontend in development mode.
 - The frontend will now be available on http://localhost:8080
 - Use the provided postman collection on `docs/postman/URL-Shortener-API.postman_collection.json` and the corresponding environment from `docs/postman/URL-Shortener-environment.postman_environment.json` to perform requests to the available endpoints.
@@ -46,7 +48,15 @@ After build, the API can be started with the `npm start -w backend` command.
 
 ### Running tests
 
-Tests are ran with the `npm run test -w backend` command. For now only E2E are implemented, using the same in-memory sqlite DB than when running the API in development mode.
+Tests are ran with the `npm run test -w backend` command. For now only E2E are implemented, using an in-memory sqlite DB.
+
+### Creating migrations
+
+Use the `npm run db:migrations:generate -w backend` command to generate migrations, for instance like this: `npm run db:migrations:generate -w backend -- --name create-urls-table`. It will generate a .js file under the `packages/backend/src/migrations` folder, rename it to .ts and follow the guidelines from the existing migrations.
+
+### Creating migrations
+
+UJse the `npm run db:migrations:run -w backend` command to update the DB to the latest schema.
 
 ### Using a different database
 
